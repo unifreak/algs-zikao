@@ -9,10 +9,10 @@ typedef struct node {
     struct node *next;
 } ListNode;
 
-typedef ListNode *CycleLinkList;
+typedef ListNode *CirLinkList;
 
-CycleLinkList CreateCycleListR() {
-    CycleLinkList head = (ListNode *) malloc(sizeof(ListNode));
+CirLinkList CreateCirListR() {
+    CirLinkList head = (ListNode *) malloc(sizeof(ListNode));
     ListNode *p, *r;
     DataType ch;
     r = head; // 尾指针初始指向头结点
@@ -34,7 +34,7 @@ CycleLinkList CreateCycleListR() {
  * 最坏情况: 执行 n 次
  * 时间复杂度: O(n)
  */
-void InsertList(CycleLinkList L, int x) {
+void InsertList(CirLinkList L, int x) {
     ListNode *s, *p, *q;
     s = (ListNode *) malloc(sizeof(ListNode));
     s->data = x;
@@ -48,7 +48,7 @@ void InsertList(CycleLinkList L, int x) {
     s->next = q;
 }
 
-void dump(CycleLinkList La) {
+void dump(CirLinkList La) {
     ListNode *p = La->next;
     int i = 0;
     while (p != La) {
@@ -59,7 +59,7 @@ void dump(CycleLinkList La) {
 }
 
 int main(void) {
-    CycleLinkList La = CreateCycleListR(); // 不输入
+    CirLinkList La = CreateCirListR(); // 不输入, 直接按回车
     InsertList(La, 5);
     InsertList(La, 4);
     InsertList(La, 8);
