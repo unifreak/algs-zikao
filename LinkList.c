@@ -234,7 +234,9 @@ LinkList MergeList(LinkList La, LinkList Lb) {
     return Lc;
 }
 
-void dump(LinkList La) {
+// ===============================================================
+
+void dumpLinkList(LinkList La) {
     ListNode *p = La;
     int i = 0;
     while (p != NULL) {
@@ -243,34 +245,3 @@ void dump(LinkList La) {
     }
     printf("\n");
 }
-
-int main(void) {
-    LinkList La = CreateListF(); // 输入 abc
-    dump(La); // c->b->a
-
-    LinkList Lb = CreateListR(); // 输入 abc
-    dump(Lb); // a->b->c
-
-    LinkList Lc = CreateListR1(); // 输入 abc
-    dump(Lc); // _->a->b->c
-
-    ListNode *p = GetNode(Lc, 2);
-    printf("%c\n", p->data); // b
-
-    p = LocateNodeK(Lc, 'c');
-    printf("%c\n", p->data); // c
-
-    InsertList(Lc, 4, 'd');
-    dump(Lc); // _->a->b->c->d
-
-    DeleteList(Lc, 4);
-    dump(Lc); // _->a->b->c
-
-    LinkList Ld = CreateListR1(); // 不输入
-    Split(Lc, Ld);
-    dump(Lc); // _->a->c
-    dump(Ld); // _->b
-
-    dump(MergeList(Lc, Ld)); // _->a->b->c
-}
-
