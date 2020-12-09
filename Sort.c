@@ -3,9 +3,9 @@
 
 #define N 100
 
-// 记录类型
-typedef int KeyType;        // 关键字类型
-typedef char InfoType;      // 其他信息类型
+// 记录
+typedef int KeyType;        // 关键字
+typedef char InfoType;      // 其他信息
 typedef struct {
     KeyType key;            // 关键字
     InfoType otherinfo;     // 其他信息
