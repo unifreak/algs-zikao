@@ -16,6 +16,13 @@ Wiki 地址: <https://github.com/UniFreak/AlgsZikaoNote/wiki>
 
 `git clone git@github.com:UniFreak/AlgsZikaoNote.git`
 
+直接在命令行运行已经编译好的文件即可看到测试用例的输出, 如运行 `./Sort`.
+
+有些文件会单独有一个测试文件, 这些文件都以 `Test` 结尾, 比如 `SeqStackTest`. 这样做是为了在其他文件中引用 `SeqList.c` 时, 避免测试输出.
+
+我是在 Mac 上编译的, 如果在 Windows 上运行不了, 你可以自行编译每个文件.
+
 # 待办事项
-- 对于复杂的讲解, 添加例图
+
+- 对于难懂的讲解, 添加例图
 - 完成 @todo 标记的事项
