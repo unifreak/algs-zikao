@@ -1,9 +1,11 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+// p.56: 循环链表
+// ===============================================================
+
 typedef int DataType;
 
-// p.56: 循环链表
 typedef struct node {
     DataType data;
     struct node *next;
@@ -11,6 +13,7 @@ typedef struct node {
 
 typedef ListNode *CirLinkList;
 
+// 尾插法创建循环链表 
 CirLinkList CreateCirListR() {
     CirLinkList head = (ListNode *) malloc(sizeof(ListNode));
     ListNode *p, *r;
@@ -26,6 +29,9 @@ CirLinkList CreateCirListR() {
     return head;
 }
 
+// 用例
+// ===============================================================
+
 /**
  * p.57: 将值为 x 的新结点插入到有序循环链表中的适当位置, 保持其有序性
  *
@@ -40,6 +46,7 @@ void InsertList(CirLinkList L, int x) {
     s->data = x;
     p = L;
     q = p->next;
+    // 注意循环链表判断是否表尾的条件: 是否等于头指针
     while (q->data > x && q != L) {
         p = p->next;
         q = p->next;
@@ -57,6 +64,9 @@ void dump(CirLinkList La) {
     }
     printf("\n");
 }
+
+// 测试
+// ===============================================================
 
 int main(void) {
     CirLinkList La = CreateCirListR(); // 不输入, 直接按回车

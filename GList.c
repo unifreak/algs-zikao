@@ -1,12 +1,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-/**
- * p.100: 广义表
- */
+// p.100: 广义表
+// ===============================================================
+
 typedef char DataType;
 
-typedef enum {atom, list} NodeTag; // atom = 0 表示原子; list =1 表示子表
+typedef enum {atom, list} NodeTag; // atom = 0 表示原子; list = 1 表示子表
 
 typedef struct GLNode {
     NodeTag tag;        // 区分原子结点还是表结点
@@ -104,12 +104,14 @@ GList head(GList GL) {
         p->next = NULL;
         return p;
     } else {        // @?: 原子情况呢? 为什么不用处理?
+                    // @a: 即使第一个原素是原子, 如 (5, (3, 2)), GL->slink 也正是 5
         return NULL;
     }
 }
 
 /**
  * p.102: 求广义表表尾
+ * 注意: 表尾不是最后一个元素, 而是除表头之外的所有元素
  */
 GList tail(GList GL) {
     GList p;

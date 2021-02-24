@@ -1,5 +1,8 @@
 #include "PostExp.c"
 
+// 测试: 后缀表达式
+// ===============================================================
+
 int main(void) {
     CirQueue q, *Q = &q;
     InitQueue(Q);

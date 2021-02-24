@@ -1,9 +1,9 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-/**
- * p.75: 循环队列
- */
+// p.75: 循环队列
+// ===============================================================
+
 #define QUEUESIZE 20
 
 typedef char DataType;
@@ -42,7 +42,7 @@ void EnQueue(CirQueue *Q, DataType x) {
         printf("Queue overflow\n");
     } else {
         Q->data[Q->rear] = x;
-        Q->rear = (Q->rear + 1) % QUEUESIZE; // 使用其余运算实现循环意义下的加 1
+        Q->rear = (Q->rear + 1) % QUEUESIZE; // 使用求余运算实现循环意义下的加 1
     }
 }
 

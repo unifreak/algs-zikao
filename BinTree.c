@@ -2,6 +2,9 @@
 #include <stdio.h>
 #include "SeqStack.c"
 
+// 二叉树
+// ===============================================================
+
 /**
  * p.111: 二叉链表
  */
@@ -164,9 +167,6 @@ void Postorder(BinTree bt) {
  * 当栈顶指向的结点的指针域为空时, 应退至上一层, 此时
  * - 若是从左子树返回, 则应访问栈顶指向的根结点
  * - 若是从右子树返回, 说明当前层遍历结束, 继续退栈
- *
- * @err: 树中用的是 SeqStack, 但因为 SeqStack 中定义的 DataType 为 char, 不兼容, 故使用 ST 模拟栈操作
- * @?: 如何解决才能使用 SeqStack?
  */
 void Inorder1(BinTree bt) {
     BinTNode *ST[100];
@@ -316,6 +316,9 @@ int Level(BinTree bt, BinTNode *p, int lh) {
     }
     return h;
 }
+
+// 测试
+// ===============================================================
 
 /**
  * 例中生成的树 t1, t2 都是:

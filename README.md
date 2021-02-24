@@ -10,6 +10,16 @@
 
 Wiki 地址: <https://github.com/UniFreak/AlgsZikaoNote/wiki>
 
+## 关于代码
+
+代码中使用 `p.45` 标识对应书中的页数. 
+
+使用 `@err` 标记书中出错的地方. 
+
+大部分的函数实现的注释中给出了性能.
+
+`main()` 方法中的注释给出了示例运行的结果.
+
 ## 使用
 
 你可以把本项目克隆到本地, 这样更便于运行代码:
@@ -24,5 +34,5 @@ Wiki 地址: <https://github.com/UniFreak/AlgsZikaoNote/wiki>
 
 # 待办事项
 
-- 对于难懂的讲解, 添加例图
-- 完成 @todo 标记的事项
+- 为难于理解的讲解添加例图
+- 完成 `@todo` 标记的事项

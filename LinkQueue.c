@@ -1,9 +1,9 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-/**
- * p.77: 链队列 (带头结点)
- */
+// p.77: 带头结点的链队列
+// ===============================================================
+
 typedef char DataType;
 
 typedef struct qnode {
@@ -12,10 +12,9 @@ typedef struct qnode {
 } QueueNode;
 
 typedef struct {
-    QueueNode *front;
-    QueueNode *rear;
-} LinkQueue; // @?: 为什么不用 *LinkQueue, 以后不用特意用 &Q ?
-             // @?: 为什么按照上述想法改完, 报错 ?
+    QueueNode *front; // 头指针
+    QueueNode *rear;  // 尾指针  
+} LinkQueue;
 
 /**
  * p.78: 构造空队列
@@ -40,8 +39,8 @@ void EnQueue(LinkQueue *Q, DataType x) {
     QueueNode *p = (QueueNode *) malloc(sizeof(QueueNode));
     p->data = x;
     p->next = NULL;
-    Q->rear->next = p; // *p 链到原队尾结点之后
-    Q->rear = p; // 队尾指针指向新的队尾结点
+    Q->rear->next = p;  // *p 链到原队尾结点之后
+    Q->rear = p;        // 队尾指针指向新的队尾结点
 }
 
 /**
@@ -52,7 +51,7 @@ DataType GetFront(LinkQueue *Q) {
         printf("Queue underflow\n");
         exit(0);
     } else {
-        return Q->front->next->data; // 因为有头结点, 故需 -> next
+        return Q->front->next->data; // 因为有头结点, 故需 ->next
     }
 }
 
@@ -61,10 +60,10 @@ DataType GetFront(LinkQueue *Q) {
  *
  * 删除操作的一种方式是, 通过修改头结点的指针域, 但是这种方式对于队列长度是否大于 1 需要分开处理:
  * - 长度大于 1 时: 只需修改头结点指针域
- * - 长度等于 1 时: 还需修改尾指针, 另其指针域为 NULL
+ * - 长度等于 1 时: 还需修改尾指针, 令其指针域为 NULL
  *
  * 这种方式比较麻烦, 所以以下实现用了一种改进方式, 以统一处理.
- * 改进方式通过删除头结点, 使队头结点成为新的头结点实现.
+ * 这种改进方式通过删除头结点, 使队头结点成为新的头结点实现.
  */
 DataType DeQueue(LinkQueue *Q) {
     QueueNode *p;
@@ -75,7 +74,7 @@ DataType DeQueue(LinkQueue *Q) {
         p = Q->front;               // p 指向头结点
         Q->front = Q->front->next;  // 头指针指向原队头结点
         free(p);                    // 删除释放原头结点
-        return(Q->front->data);     // 返回原对头结点的数据值
+        return(Q->front->data);     // 返回原队头结点的数据值
     }
 }
 

@@ -1,9 +1,9 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-/**
- * p.57: 带头结点的双向循环链表
- */
+// p.57: 带头结点的双向循环链表
+// ===============================================================
+
 typedef char DataType;
 
 typedef struct dlnode {
@@ -53,6 +53,9 @@ DataType DLDelete(DLNode *p) {
     return x;
 }
 
+// 用例
+// ===============================================================
+
 /**
  * p.59: 把 head 指向的循环链表修改为双向循环链表, 该循环链表有如下特征:
  * - 具有 prior, data, next 三个域
@@ -78,6 +81,9 @@ void dump(DLinkList L) {
     }
     printf("\n");
 }
+
+// 测试
+// ===============================================================
 
 int main(void) {
     DLinkList La = CreateDListR(); // 输入: abc

@@ -2,14 +2,20 @@
 #include <stdio.h>
 
 // p.50: 单链表
+// ===============================================================
+
 typedef char DataType;
 
+// 结点元素
 typedef struct node {
-    DataType data;
-    struct node *next;
+    DataType data;      // 数据域
+    struct node *next;  // 指针域
 } ListNode;
 
-typedef ListNode *LinkList;
+typedef ListNode *LinkList; // 头指针
+
+// 不带头结点
+// ===============================================================
 
 /**
  * p.51: 头插法建表
@@ -60,16 +66,14 @@ LinkList CreateListR() {
     return head;
 }
 
-/**
- * 带头结点的单链表
- * ===============================================================
- */
+// 带头结点
+// ===============================================================
 
 /**
  * p.52: 带头结点的尾插法建表
  */
 LinkList CreateListR1() {
-    LinkList head = (ListNode *) malloc(sizeof(ListNode));
+    LinkList head = (ListNode *) malloc(sizeof(ListNode)); // 头结点
     ListNode *p, *r;
     DataType ch;
     r = head; // 尾指针初始指向头结点
@@ -96,15 +100,15 @@ LinkList CreateListR1() {
 ListNode *GetNode(LinkList head, int i) {
     ListNode *p;
     int j;
-    p = head->next; // p 指向第一个结点
+    p = head->next; // p 初始指向第一个结点 (表头结点/开始结点)
     j = 1;
     while (p != NULL && j < i) {
         p = p->next;
         ++j;
     }
-    if (j == i) {
+    if (j == i) {   // 查找成功
         return p;
-    } else {
+    } else {        // 查找失败: 还未查找到位置 i 已经到达表尾
         return NULL;
     }
 }
@@ -126,6 +130,7 @@ ListNode *LocateNodeK(LinkList head, DataType k) {
 
 /**
  * p.54: 在第 i 个位置上插入数据域值为 x 的新结点 (带头结点)
+ * NOTE: i 从 1 开始
  *
  * 性能:
  * 不像顺序表一样需要移动结点, 基本操作仍然是查找操作
@@ -140,7 +145,7 @@ void InsertList(LinkList head, int i, DataType x) {
         p = p->next;
         ++j;
     }
-    if (p == NULL) {
+    if (p == NULL) {        // 插入位置超出队尾
         printf("Error\n");
         return;
     } else {
@@ -167,7 +172,7 @@ DataType DeleteList(LinkList head, int i) {
         p = p->next;
         ++j;
     }
-    if (p == NULL) {
+    if (p == NULL) {        // 删除位置超出队尾
         printf("Position Error!\n");
         exit(0);
     } else {
@@ -179,6 +184,9 @@ DataType DeleteList(LinkList head, int i) {
     }
 }
 
+
+// 用例
+// ===============================================================
 
 /**
  * p.55: 按序号奇偶分解单链表 a, 奇数的结点仍挂在 a, 偶数的结点挂在 b (带头结点)
@@ -216,8 +224,8 @@ LinkList MergeList(LinkList La, LinkList Lb) {
     ListNode *pa, *pb, *pc;
     LinkList Lc;
     pa = La->next; // pa, pb 分别指向两个链表的开始结点
-    pb = Lb->next; // 用 La 的头结点作为 Lc 的头结点
-    Lc = pc = La;
+    pb = Lb->next; 
+    Lc = pc = La;  // 用 La 的头结点作为 Lc 的头结点
     while (pa != NULL && pb != NULL) { // 将较小者插入 Lc
         if (pa->data <= pb->data) {
             pc->next = pa;
@@ -234,6 +242,7 @@ LinkList MergeList(LinkList La, LinkList Lb) {
     return Lc;
 }
 
+// 测试
 // ===============================================================
 
 void dumpLinkList(LinkList La) {

@@ -1,9 +1,9 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-/**
- * p.122: 线索链表 (线索二叉树)
- */
+ // p.122: 线索链表 (线索二叉树)
+ // ===============================================================
+
 typedef char DataType;
 
 typedef struct node {
@@ -93,7 +93,7 @@ void InorderThread(BinThrTree bt) {
  *
  * 分两种情况:
  * - 若 p 的 rtag=1, 表明 p->rchild 即其右线索, 即要找的后继结点
- * - 若 p 的 rtag=1, 则它的中序后继结点必是其右子树第一个中序遍历到的结点 (左子树中最左下的结点)
+ * - 若 p 的 rtag=0, 则它的中序后继结点必是其右子树第一个中序遍历到的结点 (左子树中最左下的结点)
  *
  * 性能:
  * 时间复杂度不超过二叉树的高度, 即 O(h)
@@ -103,7 +103,7 @@ BinThrNode *InorderNext(BinThrNode *p) {
         return p->rchild;
     } else {
         p = p->rchild;
-        while (p->ltag == 0) { // 沿左指针链往下查找
+        while (p->ltag == 0) { // 沿左指针链往下查找. ltag == 1 说明到达了叶子结点
             p = p->lchild;
         }
         return p;
@@ -129,6 +129,9 @@ void TInorderThrTree(BinThrTree bt) {
         } while (p != NULL);
     }
 }
+
+// 测试
+// ===============================================================
 
 int main(void) {
     /**

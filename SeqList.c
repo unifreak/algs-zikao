@@ -1,7 +1,9 @@
-// p.45
 #define LISTSIZE 100
 #include <stdio.h>
 #include <stdlib.h>
+
+// p.45: 顺序表
+// ===============================================================
 
 typedef int DataType;
 
@@ -61,7 +63,7 @@ void InsertList(SeqList *L, int i, DataType x) {
         printf("position error");
         return;
     }
-    if (L->length >= LISTSIZE) {
+    if (L->length >= LISTSIZE) {      // 插入的元素超出数组容量
         printf("overflow");
         return;
     }
@@ -95,6 +97,9 @@ DataType DeleteList(SeqList *L, int i) {
     L->length--;
     return x;
 }
+
+// 用例
+// ===============================================================
 
 /**
  * p.48:  逆置线性表
@@ -172,6 +177,9 @@ void PurgeList(SeqList *L) {
         i++;
     }
 }
+
+// 测试
+// ===============================================================
 
 int main(void) {
     SeqList L, *l = &L;

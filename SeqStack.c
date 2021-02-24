@@ -1,9 +1,9 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-/**
- * p.65: 顺序栈
- */
+// p.65: 顺序栈
+// ===============================================================
+
 #define STACKSIZE 100
 
 typedef char DataType;
