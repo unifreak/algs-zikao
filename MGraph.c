@@ -3,9 +3,9 @@
 #include <stdbool.h>
 #include "CirQueue.c"
 
-/**
- * p.145: 图的邻接矩阵表示
- */
+// p.145: 图的邻接矩阵表示
+// ===============================================================
+ 
 #define N 50                // 最大顶点数
 #define MAX 55525           // 定义最大值. 如果用真最大值, Dijkstra 算法中会溢出.
 
@@ -100,15 +100,20 @@ void BFS(MGraph G, int i, int n) {
     }
 }
 
+// MST: 最小生成树
+// ===============================================================
+
+// 记录具有最小代价的边 (轻边)
 typedef struct edge {
-    VertexType ver;
-    int lowcost;
-} minedge[N];
+    VertexType ver; // 与轻边相连的已纳入 MST 内的结点
+    int lowcost;    // 轻边上的权值
+} minedge[N];       
 
 /**
  * p.155: Prim 算法求 MST
  *
  * @note 书中代码实在对不上号, 可能是本身就有错误. 略.
+ * 算法思路见 wiki
  *
  * 性能:
  * 时间复杂度为 O(n^2)
@@ -119,6 +124,7 @@ void Prim(MGraph G, VertexType u, int n) {
 
 /**
  * p.157: Kruskal 算法求 MST: 书中只给出了抽象算法. 略
+ * 算法思路见 wiki
  *
  * 性能:
  * 时间复杂度为 O(eloge)
@@ -127,6 +133,9 @@ void Kruskal(G) {
 
 }
 
+// 最短路径
+// ===============================================================
+
 /**
  * p.159: Dijkstra 算法求单源 v0 最短路径
  *
@@ -134,9 +143,9 @@ void Kruskal(G) {
  * - 书中顶点索引从 1 开始, 为了兼容其他示例, 这里保持与其他示例代码一致, 从 0 开始
  * - 书中很多错误代码, 这里做了纠正
  */
-bool S[N];
-int dist[N];
-int path[N];
+bool S[N];      // 记录已经求出最短路径的顶点集合
+int dist[N];    // 记录从源点到其他各顶点当前的最短距离
+int path[N];    // path[i] 表示从源点到顶点 i 的最短路径上顶点的前趋顶点
 void Dijkstra(MGraph G, int v0, int n) {
     int v, i, w, min;
     // 初始化 S, dist, path
@@ -173,6 +182,9 @@ void Dijkstra(MGraph G, int v0, int n) {
         }
     }
 }
+
+// 测试
+// ===============================================================
 
 int main(void) {
     MGraph G;
