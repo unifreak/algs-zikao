@@ -1,6 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+// 散列表查找
+// ===============================================================
+
 #define M 997 // 散列表表长, 一般 M 为一个素数
 #define NULLKEY -32768 // 空单元默认存储值
 
@@ -107,6 +110,9 @@ int HashInsert2(HT T, HTNode *s, int m) {
         return 1;
     }
 }
+
+// 测试
+// ===============================================================
 
 void initHashTable(HashTable HT, int m) {
     for (int i = 0; i < m; i++) {

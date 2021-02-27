@@ -1,6 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+// 顺序表的查找
+// ===============================================================
+
 #define N 20 // 最大记录数
 
 // 顺序表
@@ -12,6 +15,9 @@ typedef struct {
 } NodeType;
 
 typedef NodeType SeqList[N+1]; // 0 号单元用作哨兵
+
+// 顺序查找 / 线性查找
+// ===============================================================
 
 /**
  * p.197: 顺序查找
@@ -26,12 +32,12 @@ typedef NodeType SeqList[N+1]; // 0 号单元用作哨兵
  * 但是效率低
  */
 int SeqSearch(SeqList R, KeyType k, int n) {
-    R[0].key = k; // R[0] 作为哨兵, 用 R[0] == k 作为循环下界的终结条件, 省略了对下标越界的检查
+    R[0].key = k;     // R[0] 作为哨兵, 用 R[0] == k 作为循环下界的终结条件, 省略了对下标越界的检查
     int i = n;        // 从后往前扫描
     while (R[i].key != k) {
         i--;
     }
-    return i;     // 返回下标. 若找不到则返回 0
+    return i;         // 返回下标. 若找不到则返回 0
 }
 
 /**
@@ -44,7 +50,7 @@ int SeqSearch(SeqList R, KeyType k, int n) {
  */
 int SeqSearch1(SeqList R, KeyType k, int n) {
     int i = n;
-    while (R[i].key > k) { // 针对有序表的优化: 一旦大于或等于关键字时就结束循环
+    while (R[i].key > k) { // 针对有序表的优化: 一旦小于或等于关键字时就结束循环
         i--;
     }
     if (R[i].key == k) {   // 找到, 返回小标
@@ -52,6 +58,9 @@ int SeqSearch1(SeqList R, KeyType k, int n) {
     }
     return 0;              // 未找到, 返回 0
 }
+
+// 二分查找 / 折半查找
+// ===============================================================
 
 /**
  * p.198: 二分查找
@@ -130,6 +139,9 @@ void BinInsert(SeqList R, KeyType x, InfoType y, int n) {
     R[pos].data = y;
 }
 
+// 二叉排序树 BST
+// ===============================================================
+
 // 二叉排序树结点
 typedef struct node {
     KeyType key;    // 关键字
@@ -194,7 +206,7 @@ BSTree CreateBST(void) {
  * p.205: 在 BST 中查找关键字为 x 的结点
  *
  * 性能:
- * 比较次数最少一次, 最多为树的深度, 所以平均查找次数小于树的深度.
+ * 比较次数: 最少一次, 最多为树的深度, 所以平均查找次数小于树的深度.
  * 若 BST 是接近一颗平衡树, 则时间复杂度为 O(logn).
  * 若 BST 退化为一颗单支树, 则时间复杂度为 O(n).
  * 一般情况下, 时间复杂度为 O(logn)
@@ -210,37 +222,8 @@ BSTNode* SearchBST(BSTree T, KeyType x) {
     }
 }
 
-typedef int KeyType;
-typedef struct node {
-    int keynum;         // 关键字个数
-    KeyType key[M];     // 关键字向量, key[0] 不用
-    struct node *parent;     // 指向双亲结点
-    struct node *ptr[M];// 子树指针向量
-} BTNode;
-
-typedef BTNode *BTree;
-
-/**
- * p.211: 查找关键字为 K 的对应结点的存储地址及 K 在其中的位置 *pos
- */
-BTNode* SearchBTree(BTree T, KeyType K, int *pos) {
-    int i;
-    BTNode *p = T;
-    while (p != NULL) { // 从根结点开始一次向下层查找
-        i = p->keynum;
-        p->key[0] = K;  // 设置哨兵
-        while (K < p->key[i]) { // 从后向前查找第一个小于等于 K 的关键字
-            i--;
-        }
-        if (K == key[i] && i > 0) { // 找到
-            pos = i;
-            return p;
-        } else {        // 未找到
-            p = p->ptr[i];
-        }
-    }
-    return NULL;
-}
+// 测试
+// ===============================================================
 
 void dump(int pos, char* name) {
     printf("%s: ", name);
