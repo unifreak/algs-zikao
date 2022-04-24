@@ -42,7 +42,7 @@ DataType GetNode(SeqList *L, int i) {
  */
 int LocateNode(SeqList *L, DataType x) {
     for (int i = 0; i < L->length; i++) {
-        if (L->data[0] == x) {
+        if (L->data[i] == x) {
             return i + 1;
         }
     }
@@ -146,7 +146,7 @@ void MaxMin(SeqList L, DataType *max, DataType *min, int *k, int *j) {
 
 
 /**
- * p.43: 集合的并
+ * p.43: 将集合 LB 中元素并入集合 LA
  */
 void UnionList(SeqList *LA, SeqList *LB) {
     int n = ListLength(LA);
@@ -188,6 +188,9 @@ int main(void) {
     InsertList(l, 1, 1); // l: 1
     InsertList(l, 2, 2); // l: 1, 2
 
+    int pos = LocateNode(l, 2);
+    printf("found 2 at postion: %d\n", pos);
+
     // @todo: util.dump
     printf("length: %d\n", l->length);
     for (int i = 1; i <= l->length; i++) {
@@ -196,7 +199,7 @@ int main(void) {
 
     SeqList R, *r = &R;
     R = Converts(L); // r: 2, 1
-    printf("length: %d\n", r->length);
+    printf("Converts: length: %d\n", r->length);
     for (int i = 1; i <= r->length; i++) {
         printf("  data at %d: %d\n", i, r->data[i-1]);
     }
