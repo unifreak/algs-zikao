@@ -13,5 +13,6 @@ if [ -e $testfile ]; then
     gcc ./$testfile -o $file"Test"
     ./$file"Test"
 else
-    echo "test file for $file not found"
+    echo "test file for $file not found" >&2
+    exit 1
 fi
