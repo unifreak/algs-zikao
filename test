@@ -1,0 +1,25 @@
+#!/bin/bash
+
+if [ -z "$1" ] || [ $# -ne 1 ]; then
+	cat <<EOF >&2
+Usage: $0 file
+
+Example:
+
+$0 CirQueue	# this will run CirQueueTest.c to test CirQueue.c
+EOF
+	exit 1
+fi
+
+
+testfile=${1%.c}Test
+if [ -e ${testfile}.c ]; then
+	echo "compiling and running ${testfile}.c ..."
+	echo
+    gcc ./${testfile}.c -o ${testfile}
+    ./${testfile}
+    rm ./${testfile}
+else
+    echo "testfile for $1 not found" >&2
+    exit 1
+fi
