@@ -1,12 +1,16 @@
 package seqlist
 
-import "fmt"
+import (
+	"fmt"
+
+	"golang.org/x/exp/constraints"
+)
 
 // Seqlist implements a sequence list using generic slice.
-type Seqlist[T comparable] []T
+type Seqlist[T constraints.Ordered] []T
 
 // New return a new Seqlist.
-func New[T comparable]() *Seqlist[T] {
+func New[T constraints.Ordered]() *Seqlist[T] {
 	return new(Seqlist[T])
 }
 
@@ -20,7 +24,7 @@ func (l *Seqlist[T]) Len() int {
 // Q1: I want to return (nil, error) when given invalid index i, and return
 // (T, error) if success, it that possible? like a union return type:
 //
-// 		func (l *Seqlist[T]) Get(i int) (T|nil, error)
+//	func (l *Seqlist[T]) Get(i int) (T|nil, error)
 //
 // A1: Union return type is not possible in golang, just do what you have done,
 // use the zero value (in this case that of a pointer). It's conventional to let
@@ -61,4 +65,75 @@ func (l *Seqlist[T]) Insert(i int, x T) error {
 	(*l)[i] = x
 
 	return nil
+}
+
+// Delete delete and return element at position i.
+func (l *Seqlist[T]) Delete(i int) (T, error) {
+	var x T
+	if i < 0 || i > l.Len() {
+		return x, fmt.Errorf("invalid position %d", i)
+	}
+
+	x = (*l)[i]
+	copy((*l)[i:], (*l)[i+1:])
+	*l = (*l)[:l.Len()-1]
+
+	return x, nil
+}
+
+// Reverse reverse elements in l.
+func (l *Seqlist[T]) Reverse() {
+	for i, j := 0, l.Len()-1; i < j; i, j = i+1, j-1 {
+		(*l)[i], (*l)[j] = (*l)[j], (*l)[i]
+	}
+}
+
+// MaxMin find the positions of both max and min elements in l.
+func (l *Seqlist[T]) MaxMin() (int, int) {
+	if l.Len() == 0 {
+		return 0, 0
+	}
+
+	var max, min = 0, 0
+	var maxV, minV = (*l)[0], (*l)[0]
+
+	for i, v := range *l {
+		if v > maxV {
+			max, maxV = i, v
+		}
+		if v < minV {
+			min, minV = i, v
+		}
+	}
+
+	return max, min
+}
+
+// Union put elements from b which is not in a into a.
+func (a *Seqlist[T]) Union(b *Seqlist[T]) {
+	for _, v := range (*b) {
+		if _, err := a.Locate(v); err != nil {
+			a.Insert(a.Len(), v)
+		}
+	}
+}
+
+// Purge remove duplicating elements from l.
+func (l *Seqlist[T]) Purge() {
+	for i, x := range (*l) {
+		// NOTE: we cannot simply do a
+		//
+		// 		for j, y := range (*l)[i+1:] { ... }
+		//
+		// the inner loop will trigger a "out of range" error. Changing slice's
+		// length cannot be picked up by for loop, the iteration count is defined
+		// before loop.
+		for j := i+1; j < l.Len(); {
+			if (*l)[j] == x {
+				l.Delete(j)
+			} else {
+				j++
+			}
+		}
+	}
 }

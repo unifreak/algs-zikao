@@ -27,7 +27,7 @@ int ListLength(SeqList *L) {
 }
 
 /**
- * 返回第 i 个元素
+ * 返回第 i 个元素. i 从 1 开始.
  */
 DataType GetNode(SeqList *L, int i) {
     if (i < 1 || i > L->length) {
@@ -107,7 +107,7 @@ DataType DeleteList(SeqList *L, int i) {
  * 性能:
  * 时间复杂度为 O(n)
  */
-SeqList Converts(SeqList L) {
+SeqList Reverse(SeqList L) {
     DataType x;
     int i, k;
     k = L.length / 2; // 以表长的一半为循环控制次数
@@ -170,6 +170,7 @@ void PurgeList(SeqList *L) {
             DataType y = GetNode(L, j);
             if (x == y) {
                 DeleteList(L, j);
+        	// 注意, DeleteList() 之后, L->length 会 -1, 故无需 j++
             } else {
                 j++;
             }
@@ -184,43 +185,46 @@ void PurgeList(SeqList *L) {
 int main(void) {
     SeqList L, *l = &L;
     InitList(l);
-    printf("length: %d\n", l->length);
+    printf("l initial length: %d\n\n", l->length);
+
     InsertList(l, 1, 1); // l: 1
-    InsertList(l, 2, 2); // l: 1, 2
-
-    int pos = LocateNode(l, 2);
-    printf("found 2 at postion: %d\n", pos);
-
-    // @todo: util.dump
-    printf("length: %d\n", l->length);
+    InsertList(l, 2, 1); // l: 1, 1
+    InsertList(l, 3, 2); // l: 1, 1, 2
+    printf("l after Insert: length: %d\n", l->length);
     for (int i = 1; i <= l->length; i++) {
         printf("  data at %d: %d\n", i, l->data[i-1]);
     }
+    int pos = LocateNode(l, 2);
+    printf("found 2 in l at postion %d\n", pos);
 
     SeqList R, *r = &R;
-    R = Converts(L); // r: 2, 1
-    printf("Converts: length: %d\n", r->length);
+    R = Reverse(L); // r: 2, 1, 1
+    InsertList(r, r->length+1, 3); // r: 2, 1, 1, 3
+    printf("\nr after Reverse: length: %d\n", r->length);
     for (int i = 1; i <= r->length; i++) {
         printf("  data at %d: %d\n", i, r->data[i-1]);
     }
 
-    DataType x = DeleteList(l, 2); // l: 1
-    printf("length: %d, deleted data: %d\n", l->length, x);
+    DataType x = DeleteList(l, 3); // l: 1, 1
+    printf("l after Delete: length: %d, deleted data: %d\n", l->length, x);
+    for (int i = 1; i <= l->length; i++) {
+    	printf("  data at %d: %d\n", i, l->data[i-1]);
+    }
 
-    UnionList(l, r); // l: 1, 2, 1
-    printf("length: %d\n", l->length);
+    UnionList(l, r); // l: 1, 1, 2, 3
+    printf("\nl after union r: length: %d\n", l->length);
     for (int i = 1; i <= l->length; i++) {
         printf("  data at %d: %d\n", i, l->data[i-1]);
     }
 
     PurgeList(l);  // l: 1, 2
-    printf("length: %d\n", l->length);
+    printf("\nl after Purge: length: %d\n", l->length);
     for (int i = 1; i <= l->length; i++) {
         printf("  data at %d: %d\n", i, l->data[i-1]);
     }
 
     DataType max, min, *pmax = &max, *pmin = &min;
     int k, j, *pk = &k, *pj = &j;
-    MaxMin(L, pmax, pmin, pk, pj); // max: 2, min: 1, k: 2, j: 1
-    printf("max: %d, min: %d, k: %d, j: %d\n", max, min, k, j);
+    MaxMin(L, pmax, pmin, pk, pj); // max: 3, min: 1, k: 3, j: 1
+    printf("\nmax: %d, min: %d, k: %d, j: %d\n", max, min, k, j);
 }
