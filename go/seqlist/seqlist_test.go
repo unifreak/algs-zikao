@@ -6,6 +6,18 @@ import (
 	"golang.org/x/exp/constraints"
 )
 
+func equal[T constraints.Ordered](a, b []T) bool {
+	if len(a) != len(b) {
+		return false
+	}
+	for i := range a {
+		if b[i] != a[i] {
+			return false
+		}
+	}
+	return true
+}
+
 func TestSeqlist(t *testing.T) {
 	l := New[string]()
 	if l.Len() != 0 {
@@ -37,7 +49,7 @@ func TestSeqlist(t *testing.T) {
 
 func TestReverse(t *testing.T) {
 	type V = int
-	tc := []struct {
+	tt := []struct {
 		in     []V
 		expect []V
 	}{
@@ -47,7 +59,7 @@ func TestReverse(t *testing.T) {
 		{[]V{1, 2, 3, 4, 5}, []V{5, 4, 3, 2, 1}},
 	}
 
-	for _, c := range tc {
+	for _, c := range tt {
 		l := New[V]()
 		fill(l, c.in)
 
@@ -64,21 +76,9 @@ func fill[T constraints.Ordered](l *Seqlist[T], s []T) {
 	}
 }
 
-func equal[T constraints.Ordered](a, b []T) bool {
-	if len(a) != len(b) {
-		return false
-	}
-	for i, v := range a {
-		if b[i] != v {
-			return false
-		}
-	}
-	return true
-}
-
 func TestMaxMin(t *testing.T) {
 	type V = float32
-	tc := []struct {
+	tt := []struct {
 		in         []V
 		max, min   int
 		maxV, minV V
@@ -88,7 +88,7 @@ func TestMaxMin(t *testing.T) {
 		{[]V{5, 5.0, 1, -2.3, 2.3, -2.3}, 0, 3, 5, -2.3},
 	}
 
-	for _, c := range tc {
+	for _, c := range tt {
 		l := New[V]()
 		fill(l, c.in)
 
@@ -112,7 +112,7 @@ func TestMaxMin(t *testing.T) {
 
 func TestUnion(t *testing.T) {
 	type V = string
-	tc := []struct {
+	tt := []struct {
 		a, b, expect []V
 	}{
 		{[]V{}, []V{}, []V{}},
@@ -124,7 +124,7 @@ func TestUnion(t *testing.T) {
 		},
 	}
 
-	for _, c := range tc {
+	for _, c := range tt {
 		a := New[V]()
 		fill(a, c.a)
 		b := New[V]()
@@ -139,7 +139,7 @@ func TestUnion(t *testing.T) {
 
 func TestPurge(t *testing.T) {
 	type V = string
-	tc := []struct{
+	tt := []struct {
 		in, expect []V
 	}{
 		{[]V{}, []V{}},
@@ -147,7 +147,7 @@ func TestPurge(t *testing.T) {
 		{[]V{"hello", "", "world", "", "", "hello"}, []V{"hello", "", "world"}},
 	}
 
-	for _, c := range tc {
+	for _, c := range tt {
 		l := New[V]()
 		fill(l, c.in)
 		l.Purge()
