@@ -1,8 +1,6 @@
 package cirlist
 
 import (
-	"fmt"
-
 	"golang.org/x/exp/constraints"
 )
 
@@ -50,7 +48,6 @@ func (l *List[T]) SortedInsert(x T) {
 	}
 
 	n := Node[T]{data: x}
-	fmt.Printf("inserting %v before %v\n", n, q)
 	n.next = q
 	p.next = &n
 	l.len++
