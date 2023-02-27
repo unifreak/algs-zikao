@@ -14,7 +14,7 @@ func TestNew(t *testing.T) {
 	}
 }
 
-func TestQueueOps(t *testing.T) {
+func TestQueue(t *testing.T) {
 	q := New[string](3)
 	q.Enqueue("alice")
 	q.Enqueue("bob")
