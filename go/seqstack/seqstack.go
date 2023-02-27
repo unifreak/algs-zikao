@@ -1,3 +1,4 @@
+// Taken from https://go.dev/blog/when-generics
 package seqstack
 
 import (
