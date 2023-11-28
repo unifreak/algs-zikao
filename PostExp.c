@@ -11,7 +11,7 @@
 int Priority(DataType op) {
     switch (op) {
         case '(':
-        case '#': return 0;
+        case '#': return 0; // # 用于表示输入结束
         case '-':
         case '+': return 1;
         case '*':
