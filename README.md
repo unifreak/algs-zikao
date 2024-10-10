@@ -1,7 +1,7 @@
+Wiki: <https://github.com/UniFreak/AlgsZikaoNote/wiki>.
+
 这是我在自考对北京邮电大学时, 学习计算机应用本科教材 <数据结构> 2012 年版的笔记
 和代码整理. 用来自查和备考快速浏览用.
-
-对应的 Wiki 地址是: <https://github.com/UniFreak/AlgsZikaoNote/wiki>.
 
 - 尽量保持和书中代码一致, 但对于特别绕口的代码, 做了一些简单优化, 如变量名重命名.
 - 针对所有算法都添加了测试用例, 可以参看每个文件中的 `main()` 函数.

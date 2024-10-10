@@ -49,7 +49,7 @@ func (l *List[T]) Get(pos int) (*Node[T], error) {
 	}
 
 	x := l.head.next
-	for i := 0; i < pos; i++ {
+	for i := 0; i < pos; i++ {	// NOT <=
 		x = x.next
 	}
 

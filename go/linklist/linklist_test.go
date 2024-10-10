@@ -60,9 +60,14 @@ func TestGet(t *testing.T) {
 		t.Errorf("expecting error, got %v", err)
 	}
 
-	node, err = list.Get(1)
-	if (*node).data != 3 {
-		t.Errorf("expectiong node data 3, got %v", (*node).data)
+	node, err = list.Get(0)
+	if (*node).data != 5 {
+		t.Errorf("expectiong node data 5, got %v", (*node).data)
+	}
+
+	node, err = list.Get(3)
+	if (*node).data != 42 {
+		t.Errorf("expecting node data 42, got %v", (*node).data)
 	}
 }
 
